@@ -1,24 +1,34 @@
-package com.jvl.des;
+    package com.jvl.des;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logic.DbInitializer;
 
 
 public class MainApp extends Application {
 
+    
+    public MainApp() {
+        DbInitializer dbInit = new DbInitializer();
+        dbInit.initialize();
+    }
+   
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
         stage.setTitle("JavaFX and Maven");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        //stage.initStyle(StageStyle.UNIFIED);
         stage.setScene(scene);
         stage.show();
     }
@@ -33,7 +43,5 @@ public class MainApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        DbInitializer dbInit = new DbInitializer();
     }
-
 }

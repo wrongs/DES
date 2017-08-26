@@ -5,7 +5,11 @@
  */
 package logic;
 
-import data.User;
+import data.IUserDao;
+import data.User;   
+import data.UserDao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
@@ -14,29 +18,38 @@ import javax.persistence.EntityManager;
  */
 public class DbInitializer {
 
-    public DbInitializer() {
-         User admin = new User(1, "Admin", "pass");
-         PersistenceManager persistenceManager = new PersistenceManager();
-         EntityManager manager = persistenceManager.getEntityManager();
-         
-        try {
-        /*
-            User user = new User(1, "admin", "pass");
-            
-            entityManager.persist(user);  
-            // tu používame správcu entít na prácu s objektami
-            Employee employee = new Employee("Samuel", "Joseph", "Wurzelbacher");
-                    */
-            User user = new User(1, "admin", "pass");
-        
-            manager.getTransaction().begin();
-            manager.persist(user);
-            manager.getTransaction().commit();
-       
-        } finally {
-            //upratat’ po sebe, ˇciže uzatvorit’ správcu entít.
-            manager.close();
-        }
+    public void initialize() 
+    {
+        if (isAdmindefault())
+        {
+            System.out.println("admin is set to defauld and should be changed becasue of security");
+        }   
     }
     
+    // load properties from db
+    
+    private boolean isAdmindefault(){
+        IUserDao userDao = new UserDao();
+        User admin = userDao.find(1l);
+        if (userDao.find(1l) == null)
+        {
+            /*
+            String encryptPass = null;
+            
+            try {
+                encryptPass = CryptoProvider.encrypt("Admin");
+            } catch (Exception ex) {
+                Logger.getLogger(DbInitializer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            userDao.create("Admin", encryptPass);
+           */
+            userDao.create("Admin", "Admin");
+            return true;
+        }
+        else if (admin.getPassword().equals("Admin"))
+        {
+            return false;
+        }
+        return false;
+    }
 }

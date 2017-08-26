@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25.8.2017, 21:14:11
+    Author     : Jakub
+*/
+.dialog-pane {
+    -fx-padding: 5;
+    -fx-alignment: center;  
+    -fx-border-style:solid;
+    -fx-border-color: black;
+    -fx-border-width: 6;
+    -fx-background-insets: 10;
+    -fx-border-insets: 8;
+    -fx-border-radius: 10;
+    -fx-background-radius: 50;  
+}
+
+.button{
+    -fx-border-width: 2px;
+    -fx-border-color: white;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-background-color: #262626;
+    -fx-font-size: 12px; 
+    -fx-padding: 8px 25px 8px 25px;
+    -fx-font-weight:700;
+    -fx-font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    -fx-text-fill: white;
+}
+.button:hover{
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: black
+}
