@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package data.entites;
 
+import data.entites.Field;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  * @author Jakub
  */
 @Entity 
-@Table(name = "Farm")
+@Table(name = "Farm") 
 public class Farm extends BaseEntity{
     String licencePlate;
     
@@ -49,5 +50,35 @@ public class Farm extends BaseEntity{
         this.animals = animals;
     }
     
-    
+   @Override
+   public String toString() {
+       return licencePlate;
+   }
+   
+   /*
+   @Override
+    public int hashCode() {
+       // int hash = 0;
+       // hash += (TCountryCode != null ? TCountryCode.hashCode() : 0);
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        /*
+        String otherTCountryCode = "";
+        if (object instanceof Country) {
+            otherTCountryCode = ((Country)object).TCountryCode;
+        } else if(object instanceof String){
+            otherTCountryCode = (String)object;
+        } else {
+            return false;
+        }   
+
+        if ((this.TCountryCode == null && otherTCountryCode != null) || (this.TCountryCode != null && !this.TCountryCode.equals(otherTCountryCode))) {
+            return false;
+        }
+        return true;
+      }     
+*/
 }

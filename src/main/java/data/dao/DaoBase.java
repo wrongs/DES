@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package data.dao;
 
+import data.entites.BaseEntity;
 import data.exceptions.EntityNotFoundException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -42,7 +43,8 @@ public abstract class DaoBase<E extends BaseEntity> implements IDaoBase<E>{
     {
         EntityManager em = getEM();
         em.getTransaction().begin();
-        em.remove(entity);
+        //em.remove(entity);
+        em.remove(em.contains(entity) ? entity : em.merge(entity));
         em.getTransaction().commit();
         em.close();
     }
@@ -67,12 +69,12 @@ public abstract class DaoBase<E extends BaseEntity> implements IDaoBase<E>{
     }
 
     @Override
-    public E find(Long id)
+    public E find(int id)
     {
-        if (id == null)
-    {
-        return null;
-    }
+        //if (id == null)
+        //{
+        //return null;
+        //}
         EntityManager em = getEM();
         E result =  em.find(getEntityClass(), id);
         em.close();
@@ -80,7 +82,7 @@ public abstract class DaoBase<E extends BaseEntity> implements IDaoBase<E>{
     }
 
     @Override
-    public E get(long id)
+    public E get(int id)
     {
         E entity = getEM().find(getEntityClass(), id);
         if (entity == null)

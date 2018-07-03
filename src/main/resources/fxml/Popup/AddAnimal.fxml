@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../../styles/Main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.controllers.EditAnimalController">
+   <children>
+      <TextField fx:id="idTagTextField" layoutX="127.0" layoutY="48.0" prefHeight="39.0" prefWidth="306.0" />
+      <TextField fx:id="speciesTextField" layoutX="127.0" layoutY="100.0" prefHeight="41.0" prefWidth="306.0" />
+      <ComboBox fx:id="farmComboBox" layoutX="127.0" layoutY="155.0" prefHeight="39.0" prefWidth="306.0" />
+      <Spinner fx:id="ageSpinner" layoutX="125.0" layoutY="206.0" prefHeight="39.0" prefWidth="174.0" />
+      <RadioButton fx:id="maleRadioButton" layoutX="134.0" layoutY="268.0" mnemonicParsing="false" text="Male" />
+      <RadioButton fx:id="femaleRadioButton" layoutX="230.0" layoutY="268.0" mnemonicParsing="false" text="Female" />
+      <Button fx:id="addButton" layoutX="127.0" layoutY="327.0" mnemonicParsing="false" onAction="#addButtonAction" text="Add" />
+      <Button fx:id="cancelButton" layoutX="342.0" layoutY="327.0" mnemonicParsing="false" onAction="#cancelButtonAction" text="Cancel" />
+      <Label layoutX="59.0" layoutY="58.0" text="ID Tag" />
+      <Label layoutX="57.0" layoutY="111.0" text="Species" />
+      <Label layoutX="67.0" layoutY="217.0" text="Age" />
+      <Label layoutX="64.0" layoutY="165.0" text="Farm" />
+   </children>
+</AnchorPane>

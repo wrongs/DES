@@ -3,23 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package data.entites;
 
+import data.entites.BaseEntity;
 import data.enumeration.Status;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author Jakub
  */
-@Entity 
+@Entity(name = "Activity")
 @Table(name = "Activity")
 public class Activity extends BaseEntity{
     
     private String name;
     private Status status;
-
+    
     public String getName() {
         return name;
     }

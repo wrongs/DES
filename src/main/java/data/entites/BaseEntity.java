@@ -1,11 +1,13 @@
-package data;
+package data.entites;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.Set;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable{ 
@@ -16,13 +18,24 @@ public abstract class BaseEntity implements Serializable{
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     //@GeneratedValue(strategy = GenerationType.TABLE)
     //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private int id;
+     
+    @OneToMany(mappedBy = "id")
+    private Set<Activity> activites;
     
-    public Long getId() {  
+    public int getId() {  
         return id;  
     }  
   
-    protected void setId(Long id) {  
+    protected void setId(int id) {  
         this.id = id;
     } 
+    
+    public Set<Activity> getActivites() {
+        return activites;
+    }
+
+    public void setActivites(Set<Activity> activites) {
+        this.activites = activites;
+    }
 }   

@@ -5,9 +5,9 @@
  */
 package logic;
 
-import data.IUserDao;
-import data.User;   
-import data.UserDao;
+import data.dao.IUserDao;
+import data.entites.User;   
+import data.dao.UserDao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -30,8 +30,8 @@ public class DbInitializer {
     
     private boolean isAdmindefault(){
         IUserDao userDao = new UserDao();
-        User admin = userDao.find(1l);
-        if (userDao.find(1l) == null)
+        User admin = userDao.find(1);
+        if (admin == null)
         {
             /*
             String encryptPass = null;

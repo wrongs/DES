@@ -9,17 +9,17 @@ package data.enumeration;
  *
  * @author Jakub
  */
-public enum Status {
+public enum FieldStatus {
     
     NEW ("New"),
-    ACTIVE ("Active"),
-    SUSPENDED ("Suspended"),
-    CLOSED ("Closed"),
-    CANCELED ("Canceld");
-    
+    PLOWED("Plowed"),
+    PLANTED ("Planted"),
+    MATURED ("Matured"),
+    HARVESTED("Harvested");
+
     private final String name;       
 
-    private Status(String s) {
+    private FieldStatus(String s) {
         name = s;
     }
     

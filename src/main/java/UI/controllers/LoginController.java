@@ -1,8 +1,9 @@
-            package com.jvl.des;
+            package UI.controllers;
 
-import data.IUserDao;
-import data.User;
-import data.UserDao;
+import com.jvl.des.UIManager;
+import data.dao.IUserDao;
+import data.entites.User;
+import data.dao.UserDao;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -50,7 +53,13 @@ public class LoginController implements Initializable {
     private Label loginStatusLabel;
     @FXML
     private Button createNewButton;
-     
+    
+    private UIManager uiManager;
+
+    public void setUiManager(UIManager mainManager) {
+        this.uiManager = mainManager;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
@@ -63,65 +72,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void loginButtonAction(ActionEvent event) throws IOException {
-        IUserDao userDao = new UserDao();   
-        /*
-        String cryptedPass = null;
-        try {
-            cryptedPass = CryptoProvider.encrypt(passwordTextFiled.textProperty().getValue());
-        } catch (Exception ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        User userToLogIn = userDao.findByNamePassword(usernameTextFiled.textProperty().getValue(), cryptedPass);
-        */
-        User userToLogIn = userDao.findByNamePassword(usernameTextField.textProperty().getValue(), passwordTextField.textProperty().getValue());
-        if(userToLogIn == null)
-        {
-            System.out.println("login failed");
-            // tady bude spusteni hlavniho okna;
-            loginStatusLabel.setText("wrong username or password");
-        }
-        else
-        {
-            System.out.println("login succeed");
-            /*
-            FXMLLoader loader = new FXMLLoader();
-            Parent parent = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-            Scene adminPanelScene = new Scene(parent);
-            Stage adminPanelStage = new Stage();
-            adminPanelStage.setMaximized(true);
-            MainController apControl = loader.getController();
-            adminPanelStage.setScene(adminPanelScene);
-            adminPanelStage.getIcons().add(new Image("/images/icon.png"));
-            adminPanelStage.setTitle("APLIKACE");
-            adminPanelStage.show();
-            */
-            
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/Main.fxml"));
-            loader.load();
-            Parent parent = loader.getRoot();
-            Scene adminPanelScene = new Scene(parent);
-            Stage adminPanelStage = new Stage();
-            adminPanelStage.setMaximized(true);
-            MainController apControl = loader.getController();
-            
-            adminPanelStage.setScene(adminPanelScene);
-            adminPanelStage.getIcons().add(new Image("/images/icon.png"));
-            adminPanelStage.setTitle("APLIKACE");
-            adminPanelStage.show();
-            
-            adminPanelStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent event) {
-                    EMFProvider.getInstance().closeEntityManagerFactory();
-                    //Platform.exit();
-                }
-            });
-
-            apControl.setLoggedUser(userToLogIn);
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.close();
-        }
+        login();
     }
 
     @FXML   
@@ -165,5 +116,97 @@ public class LoginController implements Initializable {
         nStage.initModality(Modality.APPLICATION_MODAL);
         nStage.initStyle(StageStyle.TRANSPARENT);
         nStage.show();
+    }
+
+    @FXML
+    private void onKeyPressed(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (!usernameTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty())
+            {
+                login();
+            }
+            else
+            {
+                if(!loginStatusLabel.getText().isEmpty())
+                {
+                   loginStatusLabel.setText("");
+                }
+            }
+        }
+    }
+    
+    private void login() throws IOException {
+         IUserDao userDao = new UserDao();   
+        /*`
+        String cryptedPass = null;
+        try {
+            cryptedPass = CryptoProvider.encrypt(passwordTextFiled.textProperty().getValue());
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        User userToLogIn = userDao.findByNamePassword(usernameTextFiled.textProperty().getValue(), cryptedPass);
+        */
+        User userToLogIn = userDao.findByNamePassword(usernameTextField.textProperty().getValue(), passwordTextField.textProperty().getValue());
+        if(userToLogIn == null)
+        {
+            System.out.println("login failed");
+            // tady bude spusteni hlavniho okna;
+            loginStatusLabel.setText("wrong username or password");
+        }
+        else
+        {
+            System.out.println("login succeed");
+            
+            /*
+            FXMLLoader loader = new FXMLLoader();
+            Parent parent = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+            Scene adminPanelScene = new Scene(parent);
+            Stage adminPanelStage = new Stage();
+            adminPanelStage.setMaximized(true);
+            MainController apControl = loader.getController();
+            adminPanelStage.setScene(adminPanelScene);
+            adminPanelStage.getIcons().add(new Image("/images/icon.png"));
+            adminPanelStage.setTitle("APLIKACE");
+            adminPanelStage.show();
+            
+            //Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/Main.fxml"));
+            loader.load();
+            Parent parent = loader.getRoot();
+            Scene adminPanelScene = new Scene(parent);
+            Stage adminPanelStage = new Stage();
+            adminPanelStage.setMaximized(true);
+            MainController apControl = loader.getController();
+            
+            adminPanelStage.setScene(adminPanelScene);
+            adminPanelStage.getIcons().add(new Image("/images/iconColor64.png"));
+            adminPanelStage.setTitle("APLIKACE");
+            adminPanelStage.show();
+            
+            adminPanelStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    EMFProvider.getInstance().closeEntityManagerFactory();
+                    //Platform.exit();
+                }
+            });
+
+            apControl.setLoggedUser(userToLogIn);
+            */          
+            uiManager.showMainWindow(userToLogIn);
+            //MainUIManager.setCurrentMainStage(adminPanelStage);
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            //stage.close();
+            resetLoginWindow();
+            stage.hide();
+        }
+    }
+    
+    private void resetLoginWindow()
+    {
+        usernameTextField.setText("");
+        passwordTextField.setText("");
     }
 }

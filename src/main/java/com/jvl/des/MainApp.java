@@ -2,13 +2,9 @@
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import logic.DbInitializer;
+    
 
 
 public class MainApp extends Application {
@@ -18,22 +14,8 @@ public class MainApp extends Application {
         DbInitializer dbInit = new DbInitializer();
         dbInit.initialize();
     }
-   
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
-        stage.setTitle("JavaFX and Maven");
-        stage.initStyle(StageStyle.TRANSPARENT);
-        //stage.initStyle(StageStyle.UNIFIED);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    /**
+    
+        /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be
      * launched through deployment artifacts, e.g., in IDEs with limited FX
@@ -43,5 +25,12 @@ public class MainApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+   
+    @Override
+    public void start(Stage stage) throws Exception {
+        UIManager manager = new UIManager(stage);
+        manager.initialize();
+        manager.createLogin();        
     }
 }

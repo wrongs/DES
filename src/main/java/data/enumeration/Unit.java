@@ -11,7 +11,23 @@ package data.enumeration;
  */
 public enum Unit {
     
-    LITRE,
-    KILOGRAMS,
-    METERS;
+    LITRE ("Litre"),
+    KILOGRAMS ("Kilograms"),
+    METERS("Meters"); 
+    
+    private final String name;       
+
+    private Unit(String s) {
+        name = s;
+    }
+    
+    public boolean equalsName(String otherName) {
+        // (otherName == null) check is not needed because name.equals(null) returns false 
+        return name.equals(otherName);
+    }
+
+    @Override
+    public String toString() {
+       return this.name;
+    }
 }

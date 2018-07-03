@@ -3,22 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package data.entites;
 
 import data.enumeration.Unit;
-import java.sql.Date;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Jakub
- */
-@Entity 
+         */
+@Entity(name = "Product")
 @Table(name = "Product")
 public class Product extends BaseEntity{    
     
     private String name;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date expirationDate;
     private double prize;
     private double quantity;
@@ -52,7 +56,7 @@ public class Product extends BaseEntity{
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+     public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
